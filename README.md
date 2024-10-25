@@ -30,7 +30,7 @@
         <td>김동욱</td>
     </tr>
     <tr align="center">
-        <td>Full stack, Infra</td>
+        <td>Full stack, Devops</td>
         <td>Full stack</td>
     </tr>
 </table>
