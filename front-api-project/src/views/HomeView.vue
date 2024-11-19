@@ -30,7 +30,7 @@
             data-v-97393f76=""
           ></path>
         </svg>
-        Your Vue.js App
+        SSAFIT
         <div class="message-count">
           <img class="message-icon" src="@/assets/message.png" alt="" />
           <div class="current-count" v-if="messageCount > 0">
@@ -52,20 +52,27 @@
 </template>
 <!-- scrip setup 제거함 주의-->
 <script>
-import { applyReactInVue, applyPureReactInVue } from "veaury";
-import { ref } from "vue";
+import { applyReactInVue, applyPureReactInVue } from 'veaury'
+import { ref } from 'vue'
 
-import ChatReactComponent from "../react_app/Chat.jsx";
-import WeatherForecast from "@/components/weather/WeatherForecast.vue";
-import ChatBot from "@/components/chatbot/ChatBot.vue";
-import YoutubeVideoPopular from "@/components/youtube/YoutubeVideoPopular.vue";
-import YoutubeVideoDetail from "@/components/youtube/YoutubeVideoDetail.vue";
+import ChatReactComponent from '../react_app/Chat.jsx'
+import WeatherForecast from '@/components/weather/WeatherForecast.vue'
+import ChatBot from '@/components/chatbot/ChatBot.vue'
+import YoutubeVideoPopular from '@/components/youtube/YoutubeVideoPopular.vue'
+import YoutubeVideoDetail from '@/components/youtube/YoutubeVideoDetail.vue'
 
+const SENDBIRD_API_KEY = import.meta.env.VITE_SENDBIRD_API_KEY
+
+const token = sessionStorage.getItem('access-token')
+if (token) {
+  const name = JSON.parse(atob(token.split('.')[1]))['name']
+}
+//동적으로 받아오도록 현재는 안되고 spring이랑 연결해야한다.
 const config = {
-  APP_ID: "F9D5B2A2-EAA9-4AE7-A8F8-4F5AEB37EE0D",
-  USER_ID: "Bob_1",
-  NICKNAME: "Bob",
-};
+  APP_ID: SENDBIRD_API_KEY,
+  USER_ID: name,
+  NICKNAME: name,
+}
 
 export default {
   components: {
@@ -74,21 +81,21 @@ export default {
     Chat: applyPureReactInVue(ChatReactComponent),
   },
   setup() {
-    const userRef = ref(null);
-    const messageCountRef = ref(null);
+    const userRef = ref(null)
+    const messageCountRef = ref(null)
     return {
       config: config,
       setSbUserInfo: (user) => {
-        userRef.value = user;
+        userRef.value = user
       },
       setUnreadMessageCount: (count) => {
-        messageCountRef.value = count;
+        messageCountRef.value = count
       },
       sbUserInfo: userRef,
       messageCount: messageCountRef,
-    };
+    }
   },
-};
+}
 </script>
 
 <style scoped>
