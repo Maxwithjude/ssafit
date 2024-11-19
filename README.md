@@ -45,7 +45,7 @@
    3-2. SNAKE CASE를 사용한다.  ex) first_Name(X), first_name(O)<br>
    3-3. 축약어를 사용하지 않는다. ex)fst_name (x) first_name(o)<br>
 
-4. 그 외 규칙
+4. 그 외 규칙<br>
   4-1. 협업이므로 남의 코드 의도를 바로 보고 파악하기 힘들 수 있다. 주석을 꼭 자세히 많이 달자.<br>
 ## 5. 서비스 구조도
 
