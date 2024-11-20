@@ -7,12 +7,35 @@
       <RouterLink :to="{ name: 'kakao' }">KakaoMap</RouterLink> |
       <RouterLink :to="{ name: 'tmdb' }">TMDB</RouterLink> |
       <RouterLink :to="{ name: 'youtube' }">Youtube</RouterLink> |
-      <RouterLink :to="{ name: 'login' }">Login</RouterLink>
+      <button v-if="isLoggedIn" @click="logout">로그아웃</button>
+      <RouterLink v-else :to="{ name: 'login' }">로그인</RouterLink> |
+      <RouterLink v-if="!isLoggedIn" :to="{ name: 'Signup'}">회원가입</RouterLink>
     </nav>
   </div>
 </template>
 
-<script setup></script>
+<script>
+import { useUserStore } from '@/stores/user';
+import { computed } from 'vue';
+
+export default {
+  setup() {
+    const userStore = useUserStore();
+
+    const isLoggedIn = computed(() => userStore.loginUser !== null);
+
+    const logout = () => {
+      userStore.logout();
+    };
+
+    return {
+      isLoggedIn,
+      user: userStore.loginUser,
+      logout,
+    };
+  },
+};
+</script>
 
 <style scoped>
 nav {

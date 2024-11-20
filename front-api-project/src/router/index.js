@@ -16,6 +16,7 @@ import TmdbPopular from "@/components/tmdb/TmdbPopular.vue";
 import TmdbTopRated from "@/components/tmdb/TmdbTopRated.vue";
 
 import YoutubeView from "@/views/YoutubeView.vue";
+import SignUpView from "@/views/SignUpView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -56,6 +57,11 @@ const router = createRouter({
       path: "/login",
       name: "login",
       component: UserLogin,
+    },
+    {
+      path: "/signup",
+      name: "Signup",
+      component: SignUpView
     },
     {
       path: "/kakao",
