@@ -159,16 +159,18 @@ export default {
 /* 채팅 창 스타일 */
 .chat-window {
   position: fixed;
-  right: 20px;
-  bottom: 80px;
-  width: 350px;
-  height: 500px;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  bottom: 10px; /* 화면 아래에 배치 */
+  right: 10px; /* 화면 오른쪽에 배치 */
+  width: 350px; /* 기본적으로 350px 너비로 설정 (필요에 따라 더 확장 가능) */
+  max-width: 90vw; /* 최대 너비는 화면 너비의 90%로 설정 */
+  max-height: 80vh; /* 최대 높이는 화면의 80%로 제한 */
+  overflow-y: auto; /* 내용이 많으면 스크롤이 생기도록 설정 */
+  background-color: #fff;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+  border-radius: 8px; /* 모서리 둥글게 */
   display: flex;
   flex-direction: column;
-  z-index: 9998;
+  transition: height 0.3s ease-in-out; /* 애니메이션 효과 */
 }
 .nickname {
   display: inline;
