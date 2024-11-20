@@ -10,7 +10,8 @@
     <hr />
     <YoutubeVideoPopular />
     <hr />
-    <aside>
+    <!-- 로그인 하지 않으면 렌더링 하지 않는다.-->>
+    <aside v-if="config.APP_ID" :config="config">
       <header class="header">
         <svg
           class="logo"
@@ -52,27 +53,17 @@
 </template>
 <!-- scrip setup 제거함 주의-->
 <script>
-import { applyReactInVue, applyPureReactInVue } from 'veaury'
-import { ref } from 'vue'
+import { applyReactInVue, applyPureReactInVue } from "veaury";
+import { ref } from "vue";
 
-import ChatReactComponent from '../react_app/Chat.jsx'
-import WeatherForecast from '@/components/weather/WeatherForecast.vue'
-import ChatBot from '@/components/chatbot/ChatBot.vue'
-import YoutubeVideoPopular from '@/components/youtube/YoutubeVideoPopular.vue'
-import YoutubeVideoDetail from '@/components/youtube/YoutubeVideoDetail.vue'
+import ChatReactComponent from "../react_app/Chat.jsx";
+import WeatherForecast from "@/components/weather/WeatherForecast.vue";
+import ChatBot from "@/components/chatbot/ChatBot.vue";
+import YoutubeVideoPopular from "@/components/youtube/YoutubeVideoPopular.vue";
+import YoutubeVideoDetail from "@/components/youtube/YoutubeVideoDetail.vue";
+import { escape } from "lodash";
 
-const SENDBIRD_API_KEY = import.meta.env.VITE_SENDBIRD_API_KEY
-
-const token = sessionStorage.getItem('access-token')
-if (token) {
-  const name = JSON.parse(atob(token.split('.')[1]))['name']
-}
-//동적으로 받아오도록 현재는 안되고 spring이랑 연결해야한다.
-const config = {
-  APP_ID: SENDBIRD_API_KEY,
-  USER_ID: name,
-  NICKNAME: name,
-}
+const SENDBIRD_API_KEY = import.meta.env.VITE_SENDBIRD_API_KEY;
 
 export default {
   components: {
@@ -81,21 +72,44 @@ export default {
     Chat: applyPureReactInVue(ChatReactComponent),
   },
   setup() {
-    const userRef = ref(null)
-    const messageCountRef = ref(null)
+    //로그인이 안되어 있으면 알림
+
+    const token = sessionStorage.getItem("access-token");
+    // if (!token) {
+    //   alert("로그인 시 이용 가능합니다.");
+    // } else {
+    let config = {
+      APP_ID: null,
+      USER_ID: null,
+      NICKNAME: null,
+    };
+
+    if (token) {
+      const name = JSON.parse(atob(token.split(".")[1]))["name"];
+      const nickname = JSON.parse(atob(token.split(".")[1]))["nickname"];
+      config = {
+        APP_ID: SENDBIRD_API_KEY,
+        USER_ID: name,
+        NICKNAME: nickname,
+      };
+    } else {
+      alert("채팅 기능은 로그인 시 이용 가능합니다.");
+    }
+    const userRef = ref(null);
+    const messageCountRef = ref(null);
     return {
       config: config,
       setSbUserInfo: (user) => {
-        userRef.value = user
+        userRef.value = user;
       },
       setUnreadMessageCount: (count) => {
-        messageCountRef.value = count
+        messageCountRef.value = count;
       },
       sbUserInfo: userRef,
       messageCount: messageCountRef,
-    }
+    };
   },
-}
+};
 </script>
 
 <style scoped>
