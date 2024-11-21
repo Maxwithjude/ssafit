@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.pjt.model.dao.VideoDao">
+	<select id="selectAll">
+		SELECT * FROM video;
+	</select>
+	<select id="selectOne">
+		SELECT * FROM video
+		WHERE video_id = #{id};
+	</select>
+	<select id="search">
+		SELECT * FROM video
+		<if test="key != 'none'">
+			WHERE ${key} LIKE CONCAT('%', #{word}, '%') 
+		</if>
+		<if test="orderBy != 'none'">
+			ORDER BY ${orderBy} ${orderByDir};
+		</if>
+	</select>
+	<select id="getFollowList" resultType="Video">
+		SELECT v.*
+		FROM video v
+		JOIN follow f ON v.video_id = f.video_id
+		WHERE f.user_id = #{userId};
+	</select>
+	<!-- 중복된 video_id는 무시하고 삽입 -->
+	<insert id="insertVideos">
+	    INSERT IGNORE INTO video (video_id, title, channel_name, url, view_count)
+	    VALUES
+	    <foreach item="video" collection="list" separator=",">
+	        (#{video.videoId}, #{video.title}, #{video.channelName}, #{video.url}, #{video.viewCount})
+	    </foreach>
+	</insert>
+</mapper>
