@@ -30,6 +30,7 @@ export default {
       id: '',
       password: '',
       name: '',
+      nickname: '',
     });
 
     const handleSignup = async (e) => {

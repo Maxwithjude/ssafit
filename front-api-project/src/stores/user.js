@@ -3,7 +3,7 @@ import { defineStore } from 'pinia';
 import axios from 'axios';
 import router from '@/router';
 
-const REST_API_URL = `http://70.12.103.63:8080/api-user`;
+const REST_API_URL = `http://localhost:8080/api-user`;
 
 export const useUserStore = defineStore('user', () => {
   const loginUser = ref(null);
@@ -12,18 +12,18 @@ export const useUserStore = defineStore('user', () => {
   const userLogin = async (id, password) => {
     try {
       const res = await axios.post(`${REST_API_URL}/login`, { id, password });
-
+  
       sessionStorage.setItem('access-token', res.data['access-token']);
-
+  
       const token = res.data['access-token'].split('.');
       const name = JSON.parse(atob(token[1]))['name'];
-
+  
       loginUser.value = name;
-
+  
       router.push({ name: 'boardList' });
     } catch (err) {
       console.error(err);
-      router.push({ name: 'home' });
+      throw new Error(err.response?.data?.message || 'ID/PW 정보가 맞지 않습니다.'); // 실패 시 명확한 에러 메시지
     }
   };
 
@@ -36,9 +36,9 @@ export const useUserStore = defineStore('user', () => {
   };
 
   // 회원가입 함수
-  const signup = async ({ id, password, name }) => {
+  const signup = async ({ id, password, name, nickname }) => {
     try {
-      const res = await axios.post(`${REST_API_URL}/signup`, { id, password, name });
+      const res = await axios.post(`${REST_API_URL}/signup`, { id, password, name, nickname });
       alert('회원가입이 성공적으로 완료되었습니다.');
       router.push({ name: 'login' }); // 회원가입 후 로그인 페이지로 이동
     } catch (err) {

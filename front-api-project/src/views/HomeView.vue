@@ -13,7 +13,9 @@
     <!-- 로그인 하지 않으면 렌더링 하지 않는다.-->>
     <!-- Chat Icon -->
     <div v-if="!isChatOpen" @click="toggleChatWindow" class="chat-icon">
-      <img src="@/assets/chat-icon.png" alt="Chat Icon" />
+      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-chat-right-text-fill" viewBox="0 0 16 16">
+  <path d="M16 2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h9.586a1 1 0 0 1 .707.293l2.853 2.853a.5.5 0 0 0 .854-.353zM3.5 3h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1 0-1m0 2.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1 0-1m0 2.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1"/>
+</svg>
     </div>
     <!-- 클릭했을 시 보일 채팅 윈도우-->
     <div v-if="isChatOpen" class="chat-window">
@@ -38,17 +40,19 @@
             ></path>
           </svg>
           SSAFIT
-          <button @click="closeChatWindow">X</button>
           <div class="message-count">
             <img class="message-icon" src="@/assets/message.png" alt="" />
             <div class="current-count" v-if="messageCount > 0">
               {{ messageCount }}
             </div>
           </div>
+          <button @click="closeChatWindow" id="closeBtn"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x-square-fill" viewBox="0 0 16 16">
+  <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708"/>
+</svg></button>
           <div class="nickname">{{ sbUserInfo?.nickname }}</div>
         </header>
 
-        <main>
+        <main class="message-window">
           <Chat
             :config="config"
             :setSbUserInfo="setSbUserInfo"
@@ -113,7 +117,7 @@ export default {
         NICKNAME: nickname,
       };
     } else {
-      alert("채팅 기능은 로그인 시 이용 가능합니다.");
+      // alert("채팅 기능은 로그인 시 이용 가능합니다.");
     }
     const userRef = ref(null);
     const messageCountRef = ref(null);
@@ -143,7 +147,7 @@ export default {
   right: 20px;
   width: 60px;
   height: 60px;
-  background-color: #007bff;
+  background-color: #58FAF4;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -151,6 +155,7 @@ export default {
   cursor: pointer;
   z-index: 9999;
 }
+
 .chat-icon img {
   width: 40px;
   height: 40px;
@@ -159,9 +164,10 @@ export default {
 /* 채팅 창 스타일 */
 .chat-window {
   position: fixed;
+  height: 600px;
   bottom: 10px; /* 화면 아래에 배치 */
   right: 10px; /* 화면 오른쪽에 배치 */
-  width: 350px; /* 기본적으로 350px 너비로 설정 (필요에 따라 더 확장 가능) */
+  width: 800px; /* 기본적으로 350px 너비로 설정 (필요에 따라 더 확장 가능) */
   max-width: 90vw; /* 최대 너비는 화면 너비의 90%로 설정 */
   max-height: 80vh; /* 최대 높이는 화면의 80%로 제한 */
   overflow-y: auto; /* 내용이 많으면 스크롤이 생기도록 설정 */
@@ -172,6 +178,17 @@ export default {
   flex-direction: column;
   transition: height 0.3s ease-in-out; /* 애니메이션 효과 */
 }
+
+.chat-header {
+  display: flex; /* Flexbox 활성화 */
+  flex-direction: column; /* 수직 방향 정렬 */
+  flex: 5;
+}
+
+.message-window {
+  flex: 1;
+}
+
 .nickname {
   display: inline;
   font-size: 17px;
@@ -203,6 +220,8 @@ export default {
 }
 
 .header {
+  display: flex;
+  justify-content: flex-start;
   border-bottom: 1px solid #eaeaea;
   font-weight: 700;
   background-color: #742ddd;
@@ -215,5 +234,12 @@ export default {
 .logo {
   display: inline-block;
   vertical-align: text-bottom;
+}
+
+#closeBtn {
+  margin-left: auto;
+  color: #42B983;
+  background-color: #742ddd;
+  padding: 0.1%;
 }
 </style>

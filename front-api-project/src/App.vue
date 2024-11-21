@@ -11,4 +11,6 @@
 import TheHeaderNav from "./components/common/TheHeaderNav.vue";
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>
