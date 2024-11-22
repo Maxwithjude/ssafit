@@ -12,14 +12,23 @@
     <hr />
     <!-- 로그인 하지 않으면 렌더링 하지 않는다.-->>
     <div class="speech-bubble">
-      <br>
+      <br />
       <h4><strong>채팅을 통해 러닝크루를 모집해보세요!</strong></h4>
     </div>
     <!-- Chat Icon -->
     <div v-if="!isChatOpen" @click="toggleChatWindow" class="chat-icon">
-      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-chat-right-text-fill" viewBox="0 0 16 16">
-  <path d="M16 2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h9.586a1 1 0 0 1 .707.293l2.853 2.853a.5.5 0 0 0 .854-.353zM3.5 3h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1 0-1m0 2.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1 0-1m0 2.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1"/>
-</svg>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="30"
+        height="30"
+        fill="currentColor"
+        class="bi bi-chat-right-text-fill"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M16 2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h9.586a1 1 0 0 1 .707.293l2.853 2.853a.5.5 0 0 0 .854-.353zM3.5 3h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1 0-1m0 2.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1 0-1m0 2.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1"
+        />
+      </svg>
     </div>
     <!-- 클릭했을 시 보일 채팅 윈도우-->
     <div v-if="isChatOpen" class="chat-window">
@@ -50,9 +59,20 @@
               {{ messageCount }}
             </div>
           </div>
-          <button @click="closeChatWindow" id="closeBtn"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x-square-fill" viewBox="0 0 16 16">
-  <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708"/>
-</svg></button>
+          <button @click="closeChatWindow" id="closeBtn">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="25"
+              height="25"
+              fill="currentColor"
+              class="bi bi-x-square-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708"
+              />
+            </svg>
+          </button>
           <div class="nickname">{{ sbUserInfo?.nickname }}</div>
         </header>
 
@@ -69,16 +89,16 @@
 </template>
 <!-- scrip setup 제거함 주의-->
 <script>
-import { applyReactInVue, applyPureReactInVue } from "veaury";
-import { ref } from "vue";
+import { applyReactInVue, applyPureReactInVue } from 'veaury'
+import { ref } from 'vue'
 
-import ChatReactComponent from "../react_app/Chat.jsx";
-import WeatherForecast from "@/components/weather/WeatherForecast.vue";
-import ChatBot from "@/components/chatbot/ChatBot.vue";
-import YoutubeVideoPopular from "@/components/youtube/YoutubeVideoPopular.vue";
-import YoutubeVideoDetail from "@/components/youtube/YoutubeVideoDetail.vue";
+import ChatReactComponent from '../react_app/Chat.jsx'
+import WeatherForecast from '@/components/weather/WeatherForecast.vue'
+import ChatBot from '@/components/chatbot/ChatBot.vue'
+import YoutubeVideoPopular from '@/components/youtube/YoutubeVideoPopular.vue'
+import YoutubeVideoDetail from '@/components/youtube/YoutubeVideoDetail.vue'
 
-const SENDBIRD_API_KEY = import.meta.env.VITE_SENDBIRD_API_KEY;
+const SENDBIRD_API_KEY = import.meta.env.VITE_SENDBIRD_API_KEY
 
 export default {
   components: {
@@ -88,21 +108,21 @@ export default {
   },
   setup() {
     //토글
-    const isChatOpen = ref(false);
+    const isChatOpen = ref(false)
 
     // 채팅 창 열기/닫기 토글
     const toggleChatWindow = () => {
-      isChatOpen.value = true;
-    };
+      isChatOpen.value = true
+    }
 
     // 채팅 창 닫기
     const closeChatWindow = () => {
-      isChatOpen.value = false;
-    };
+      isChatOpen.value = false
+    }
 
     //로그인이 안되어 있으면 알림
 
-    const token = sessionStorage.getItem("access-token");
+    const token = sessionStorage.getItem('access-token')
     // if (!token) {
     //   alert("로그인 시 이용 가능합니다.");
     // } else {
@@ -110,37 +130,39 @@ export default {
       APP_ID: null,
       USER_ID: null,
       NICKNAME: null,
-    };
+    }
 
     if (token) {
-      const name = JSON.parse(atob(token.split(".")[1]))["name"];
-      const nickname = JSON.parse(atob(token.split(".")[1]))["nickname"];
+      const name = JSON.parse(atob(token.split('.')[1]))['name']
+      const nickname = JSON.parse(atob(token.split('.')[1]))['nickname']
+      console.log(name)
+      console.log(nickname)
       config = {
         APP_ID: SENDBIRD_API_KEY,
         USER_ID: name,
         NICKNAME: nickname,
-      };
+      }
     } else {
       // alert("채팅 기능은 로그인 시 이용 가능합니다.");
     }
-    const userRef = ref(null);
-    const messageCountRef = ref(null);
+    const userRef = ref(null)
+    const messageCountRef = ref(null)
     return {
       isChatOpen,
       toggleChatWindow,
       closeChatWindow,
       config: config,
       setSbUserInfo: (user) => {
-        userRef.value = user;
+        userRef.value = user
       },
       setUnreadMessageCount: (count) => {
-        messageCountRef.value = count;
+        messageCountRef.value = count
       },
       sbUserInfo: userRef,
       messageCount: messageCountRef,
-    };
+    }
   },
-};
+}
 </script>
 
 <style scoped>
@@ -151,7 +173,7 @@ export default {
   right: 20px;
   width: 60px;
   height: 60px;
-  background-color: #58FAF4;
+  background-color: #58faf4;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -242,7 +264,7 @@ export default {
 
 #closeBtn {
   margin-left: auto;
-  color: #42B983;
+  color: #42b983;
   background-color: #742ddd;
   padding: 0.1%;
 }
@@ -279,5 +301,4 @@ export default {
   margin-top: -10px;
   margin-right: -20px;
 }
-
 </style>
