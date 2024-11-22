@@ -34,7 +34,7 @@ const Chat = (props) => {
     <SendbirdApp
       appId={props.config.APP_ID}
       userId={props.config.USER_ID}
-      nickName={props.config.NICKNAME}
+      nickname={props.config.NICKNAME}
     />
   )
 }
