@@ -7,9 +7,11 @@
       <RouterLink :to="{ name: 'kakao' }">KakaoMap</RouterLink> |
       <RouterLink :to="{ name: 'tmdb' }">TMDB</RouterLink> |
       <RouterLink :to="{ name: 'youtube' }">Youtube</RouterLink> |
-      <button v-if="isLoggedIn" @click="logout">로그아웃</button>
-      <RouterLink v-else :to="{ name: 'login' }">로그인</RouterLink> |
-      <RouterLink v-if="!isLoggedIn" :to="{ name: 'Signup'}">회원가입</RouterLink>
+      <div class="header-buttons">
+        <button v-if="isLoggedIn" @click="logout">로그아웃</button>
+        <RouterLink v-else :to="{ name: 'login' }">로그인</RouterLink>
+        <RouterLink v-if="!isLoggedIn" :to="{ name: 'Signup'}">회원가입</RouterLink>
+      </div>
     </nav>
   </div>
 </template>
@@ -49,4 +51,11 @@ nav a {
 nav a.router-link-exact-active {
   color: #42b983;
 }
+
+.header-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-right: 50px;
+  }
 </style>

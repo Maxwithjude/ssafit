@@ -11,7 +11,7 @@ export const useUserStore = defineStore('user', () => {
   // 로그인 함수
   const userLogin = async (id, password) => {
     try {
-      const res = await axios.post(`${REST_API_URL}/login`, { id, password });
+      const res = await axios.post(`${REST_API_URL}/login`, { userId : id, userPassword : password });
   
       sessionStorage.setItem('access-token', res.data['access-token']);
   
@@ -35,17 +35,23 @@ export const useUserStore = defineStore('user', () => {
     router.push({ name: 'home' });
   };
 
-  // 회원가입 함수
-  const signup = async ({ id, password, name, nickname }) => {
-    try {
-      const res = await axios.post(`${REST_API_URL}/signup`, { id, password, name, nickname });
-      alert('회원가입이 성공적으로 완료되었습니다.');
-      router.push({ name: 'login' }); // 회원가입 후 로그인 페이지로 이동
-    } catch (err) {
-      console.error(err);
-      alert('회원가입에 실패했습니다. 다시 시도해주세요.');
-    }
-  };
+// 회원가입 함수
+const signup = async ({ userId: id, userPassword: password, userName: name, userNickname: nickname, userEmail: email }) => {
+  try {
+    const res = await axios.post(`${REST_API_URL}/signup`, { 
+      userId: id, 
+      userPassword: password, 
+      userName: name, 
+      userNickname: nickname, 
+      userEmail: email 
+    });
+    alert('회원가입이 성공적으로 완료되었습니다.');
+    router.push({ name: 'login' }); // 회원가입 후 로그인 페이지로 이동
+  } catch (err) {
+    console.error('회원가입 요청 실패:', err);
+    alert(err.response?.data?.message || '회원가입에 실패했습니다. 다시 시도해주세요.');
+  }
+};
 
   return {
     loginUser,

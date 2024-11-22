@@ -11,6 +11,10 @@
     <YoutubeVideoPopular />
     <hr />
     <!-- 로그인 하지 않으면 렌더링 하지 않는다.-->>
+    <div class="speech-bubble">
+      <br>
+      <h4><strong>채팅을 통해 러닝크루를 모집해보세요!</strong></h4>
+    </div>
     <!-- Chat Icon -->
     <div v-if="!isChatOpen" @click="toggleChatWindow" class="chat-icon">
       <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-chat-right-text-fill" viewBox="0 0 16 16">
@@ -242,4 +246,38 @@ export default {
   background-color: #742ddd;
   padding: 0.1%;
 }
+
+.speech-bubble {
+  font-style: oblique;
+  position: fixed;
+  bottom: 20px;
+  right: 100px;
+  width: 250px;
+  height: 100px;
+  background: #e4d8f4;
+  border-radius: 0.4em;
+
+  /* 중앙 정렬을 위한 Flexbox */
+  display: flex; /* Flexbox 활성화 */
+  justify-content: center; /* 가로 중앙 정렬 */
+  align-items: center; /* 세로 중앙 정렬 */
+  text-align: center; /* 텍스트 줄바꿈 시 가운데 정렬 */
+  padding: 10px; /* 텍스트와 말풍선 가장자리 간격 */
+}
+
+.speech-bubble:after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border: 20px solid transparent;
+  border-left-color: #e4d8f4;
+  border-right: 0;
+  border-bottom: 0;
+  margin-top: -10px;
+  margin-right: -20px;
+}
+
 </style>
