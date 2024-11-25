@@ -112,13 +112,20 @@ export const useYoutubeStore = defineStore("youtube", () => {
   // **추가된 리뷰 등록 기능**
   const addReview = async (videoId, review) => {
     try {
-      await axios.post(`${REST_API_URL}/videos/${videoId}/reviews`, review);
+      // 데이터 유효성 확인
+      if (!review.reviewTitle || !review.reviewContent) {
+        throw new Error("리뷰 제목과 내용을 입력해야 합니다.");
+      }
+  
+      // POST 요청
+      const response = await axios.post(`${REST_API_URL}/videos/${videoId}/reviews`, review);
+      console.log("리뷰 등록 성공:", response.data);
     } catch (error) {
-      console.error("리뷰 등록 실패:", error);
+      console.error("리뷰 등록 실패:", error.response?.data || error.message);
       throw new Error("리뷰 등록에 실패했습니다.");
     }
   };
-
+  
   // **추가된 비디오 저장 기능**
   const saveVideo = async (video) => {
     try {

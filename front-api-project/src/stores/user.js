@@ -7,6 +7,7 @@ const REST_API_URL = `http://localhost:8080/api-user`;
 
 export const useUserStore = defineStore("user", () => {
   const loginUser = ref(null);
+  const currentUser = ref(null);
 
   // 로그인 함수
   const userLogin = async (id, password) => {
@@ -65,12 +66,23 @@ export const useUserStore = defineStore("user", () => {
       throw new Error("사용자 정보를 불러오지 못했습니다.");
     }
   };
+  
+  const loadCurrentUser = async () => {
+    try {
+        const userInfo = await fetchUserInfo();
+        currentUser.value = userInfo;
+    } catch (error) {
+        console.error("사용자 정보 로드 실패:", error);
+    }
+  };
 
   return {
     loginUser,
+    currentUser, // 사용자 정보 추가
     userLogin,
     logout,
     signup,
     fetchUserInfo, // 추가된 부분
+    loadCurrentUser, // 사용자 정보 로드 추가
   };
 });

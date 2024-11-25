@@ -1,13 +1,13 @@
 <template>
   <div>
     <h2>HomeView</h2>
-    <hr />
+    <v-divider :thickness="5" color="info"></v-divider>
     <ChatBot />
-    <hr />
+    <v-divider :thickness="5" color="info"></v-divider>
     <YoutubeVideoDetail />
-    <hr />
+    <v-divider :thickness="5" color="info"></v-divider>
     <YoutubeVideoPopular />
-    <hr />
+    <v-divider :thickness="5" color="info"></v-divider>
     <!-- 로그인 하지 않으면 렌더링 하지 않는다.-->>
     <div class="speech-bubble">
       <br />

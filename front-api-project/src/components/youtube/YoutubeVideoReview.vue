@@ -1,41 +1,71 @@
 <template>
-  <div class="video-review">
-    <h2>리뷰</h2>
+  <v-card class="pa-4" elevation="2">
+    <h2 class="text-h5">리뷰</h2>
 
     <!-- 사용자 정보 -->
-    <div v-if="user" class="user-info">
+    <div v-if="isLoggedIn" class="user-info">
       <p>
-        작성자: <strong>{{ user.userNickname }}</strong>
+        작성자: <strong>{{ currentUser }}</strong>
       </p>
+    </div>
+    <div v-else>
+      <v-alert type="info" class="mb-4">
+        로그인이 필요합니다. 리뷰를 작성하려면 로그인하세요.
+      </v-alert>
     </div>
 
     <!-- 리뷰 작성 -->
-    <div class="review-form">
-      <textarea
+    <div class="review-form" v-if="isLoggedIn">
+      <v-textarea
         v-model="newReviewContent"
-        placeholder="리뷰를 작성하세요..."
-      ></textarea>
-      <button @click="submitReview">리뷰 등록</button>
+        label="리뷰를 작성하세요..."
+        outlined
+        dense
+        rows="3"
+        maxlength="200"
+      ></v-textarea>
+      <div class="d-flex justify-space-between align-center">
+        <small>{{ newReviewContent.length }}/200</small>
+        <v-btn
+          color="primary"
+          @click="submitReview"
+          :disabled="!newReviewContent.trim()"
+        >
+          리뷰 등록
+        </v-btn>
+      </div>
     </div>
 
     <!-- 리뷰 목록 -->
-    <div class="review-list">
-      <div class="review-item" v-for="review in reviews" :key="review.reviewId">
-        <h4>{{ review.reviewTitle }}</h4>
-        <p>{{ review.reviewContent }}</p>
-        <p>작성자: {{ review.userNickname }}</p>
-      </div>
+    <v-divider class="my-4"></v-divider>
+    <div class="review-list" v-if="reviews.length > 0">
+      <v-card
+        class="mb-3"
+        v-for="review in reviews"
+        :key="review.reviewId"
+        outlined
+        elevation="0"
+      >
+        <v-card-title>{{ review.reviewTitle }}</v-card-title>
+        <v-card-subtitle>작성자: {{ review.userNickname }}</v-card-subtitle>
+        <v-card-text>{{ review.reviewContent }}</v-card-text>
+      </v-card>
     </div>
-  </div>
+    <div v-else>
+      <v-alert type="info">
+        리뷰가 없습니다. 첫 번째 리뷰를 작성해보세요!
+      </v-alert>
+    </div>
+  </v-card>
 </template>
 
 <script>
-import { ref, watch } from 'vue'
-import { useYoutubeStore } from '@/stores/youtube'
-import { useUserStore } from '@/stores/user'
+import { ref, computed, watch } from "vue";
+import { useYoutubeStore } from "@/stores/youtube";
+import { useUserStore } from "@/stores/user";
 
 export default {
-  name: 'YoutubeVideoReview',
+  name: "YoutubeVideoReview",
   props: {
     videoId: {
       type: String,
@@ -43,99 +73,83 @@ export default {
     },
   },
   setup(props) {
-    const youtubeStore = useYoutubeStore()
-    const userStore = useUserStore()
+    const youtubeStore = useYoutubeStore();
+    const userStore = useUserStore();
 
-    const user = userStore.currentUser
+    // 로그인 상태 및 사용자 정보
+    const isLoggedIn = computed(() => userStore.loginUser !== null);
+    const currentUser = computed(() => userStore.loginUser);
 
-    // 새로운 리뷰 작성 상태
-    const newReviewContent = ref('')
+    const newReviewContent = ref("");
+    const reviews = ref([]);
 
-    // 리뷰 목록 상태
-    const reviews = ref([])
-
-    // 선택된 비디오 ID가 변경되면 리뷰 불러오기
-    watch(
-      () => props.videoId,
-      async (videoId) => {
-        if (videoId) {
-          try {
-            reviews.value = await youtubeStore.fetchReviews(videoId)
-          } catch (error) {
-            console.error('리뷰 목록 불러오기 실패:', error)
-            alert('리뷰 목록을 가져오지 못했습니다.')
-          }
-        }
-      },
-      { immediate: true }
-    )
+    // 리뷰 불러오기
+    const loadReviews = async () => {
+      try {
+        reviews.value = await youtubeStore.fetchReviews(props.videoId);
+      } catch (error) {
+        console.error("리뷰 목록 불러오기 실패:", error);
+        alert("리뷰 목록을 가져오지 못했습니다.");
+      }
+    };
 
     // 리뷰 제출
     const submitReview = async () => {
       if (!newReviewContent.value.trim()) {
-        alert('리뷰 내용을 입력해주세요!')
-        return
+        alert("리뷰 내용을 입력해주세요!");
+        return;
       }
 
-      // 리뷰 작성 데이터
       const newReview = {
-        reviewTitle: `리뷰_${Date.now()}`, // 임시 제목
+        reviewTitle: `리뷰_${Date.now()}`,
         reviewContent: newReviewContent.value,
-        userNickname: user.userNickname,
-        userId: user.id,
-      }
+        userNickname: currentUser.value,
+      };
 
       try {
-        await youtubeStore.addReview(props.videoId, newReview)
-        newReviewContent.value = '' // 작성된 리뷰 초기화
-        reviews.value = await youtubeStore.fetchReviews(props.videoId) // 리뷰 목록 새로고침
+        await youtubeStore.addReview(props.videoId, newReview);
+        newReviewContent.value = "";
+        await loadReviews();
       } catch (error) {
-        console.error('리뷰 등록 실패:', error)
-        alert('리뷰 등록에 실패했습니다. 다시 시도해주세요.')
+        console.error("리뷰 등록 실패:", error);
+        alert("리뷰 등록에 실패했습니다. 다시 시도해주세요.");
       }
-    }
+    };
+
+    // 비디오 ID 변경 시 리뷰 갱신
+    watch(
+      () => props.videoId,
+      async (newVideoId) => {
+        if (newVideoId) {
+          await loadReviews();
+        }
+      },
+      { immediate: true }
+    );
 
     return {
-      user,
+      isLoggedIn,
+      currentUser,
       reviews,
       newReviewContent,
       submitReview,
-    }
+      loadReviews,
+    };
   },
-}
+};
 </script>
 
 <style scoped>
-.video-review {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  margin-left: 20px;
-}
-
-.review-form textarea {
-  width: 100%;
-  height: 80px;
-  margin-bottom: 10px;
-}
-
-.review-form button {
-  padding: 5px 10px;
-  cursor: pointer;
+.review-form {
+  margin-top: 16px;
 }
 
 .review-list {
-  margin-top: 20px;
-}
-
-.review-item {
-  margin-bottom: 15px;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 10px;
+  margin-top: 16px;
 }
 
 .user-info p {
-  margin: 0 0 10px;
+  margin-bottom: 16px;
   font-size: 14px;
   color: #333;
 }
