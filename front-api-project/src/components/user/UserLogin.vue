@@ -1,88 +1,192 @@
 <template>
-  <div class="login-page d-flex justify-content-center align-items-center vh-100 bg-light">
-  <div class="login-card card p-5 shadow-sm" style="width: 400px;">
-    <div class="text-center mb-4">
-      <h3 class="mb-1">로그인</h3>
+  <div class="login-container">
+    <div class="login-card">
+      <div class="login-header">
+        <h2>로그인</h2>
+        <p>
+          아이디와 비밀번호를 입력해 로그인해주세요.<br />
+          아직 회원이 아니라면 <RouterLink :to="{ name: 'Signup' }" class="signup-link">회원가입</RouterLink>을 먼저 해주시기 바랍니다.
+        </p>
+      </div>
+
+      <form @submit.prevent="login" class="login-form">
+        <div class="form-group">
+          <label for="id">아이디</label>
+          <input 
+            id="id"
+            type="text" 
+            v-model.trim="id" 
+            placeholder="아이디를 입력하세요"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password">비밀번호</label>
+          <input 
+            id="password"
+            type="password" 
+            v-model.trim="password" 
+            placeholder="비밀번호를 입력하세요"
+            required
+          />
+        </div>
+
+        <button type="submit" class="login-button">
+          로그인
+          <span class="button-arrow">→</span>
+        </button>
+      </form>
     </div>
-    <p class="text-center mb-4">
-      아이디와 비밀번호를 입력해 로그인해주세요.<br />
-      아직 회원이 아니라면 <a href="#" class="signup-link">회원가입</a>을 먼저 해주시기 바랍니다.
-    </p>
-    <div class="mb-3">
-      <input 
-        type="text" 
-        class="form-control" 
-        placeholder="ID 입력" 
-        v-model.trim="id" 
-      />
-    </div>
-    <div class="mb-3">
-      <input 
-        type="password" 
-        class="form-control" 
-        placeholder="PW 입력" 
-        v-model.trim="password" 
-      />
-    </div>
-    <button 
-      class="btn btn-primary w-100" 
-      @click="login"
-    >
-      로그인
-    </button>
   </div>
-</div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { useUserStore } from '@/stores/user';
+import { ref } from 'vue'
+import { useUserStore } from '@/stores/user'
+import { useRouter } from 'vue-router'
 
-const store = useUserStore();
+const router = useRouter()
+const store = useUserStore()
 
-const id = ref('');
-const password = ref('');
+const id = ref('')
+const password = ref('')
 
-const login = async function () {
-try {
-  await store.userLogin(id.value, password.value);
-  alert('로그인 성공!');
-} catch (error) {
-  alert('로그인 실패: ' + error.message); // 실패 시 정확한 실패 메시지 표시
+const login = async () => {
+  try {
+    await store.userLogin(id.value, password.value)
+    router.push({ name: 'home' })
+  } catch (error) {
+    alert('로그인 실패: ' + error.message)
+  }
 }
-};
-
 </script>
 
 <style scoped>
-.login-page {
-background-color: #f8f9fa; /* 밝은 회색 배경 */
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #fff5f5 0%, #fff0f7 100%);
+  padding: 2rem;
 }
 
 .login-card {
-border-radius: 8px; /* 카드 모서리 둥글게 */
+  background: white;
+  border-radius: 20px;
+  padding: 3rem;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
 }
 
-.login-card h3 {
-font-weight: 600; /* 헤더를 더 두껍게 */
-color: #333; /* 더 진한 색상 */
-}
-.login-card p {
-color: #555; /* 본문 설명의 진한 색상 */
+.login-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
 }
 
-.btn-primary {
-background-color: #0056b3; /* SSAFY와 유사한 파란색 */
-border: none;
+.login-header h2 {
+  color: #1e293b;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
 }
-.btn-primary:hover {
-background-color: #004494; /* 호버 시 더 진한 파란색 */
+
+.login-header p {
+  color: #64748b;
+  font-size: 0.95rem;
+  line-height: 1.6;
 }
+
 .signup-link {
-color: #3C90E2; /* 회원가입 텍스트 색상 */
-text-decoration: none;
+  color: #f97316;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
 }
+
 .signup-link:hover {
-text-decoration: underline; /* 마우스 오버 시 밑줄 표시 */
+  color: #ec4899;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  color: #1e293b;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.form-group input {
+  padding: 0.75rem 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #f97316;
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+}
+
+.form-group input::placeholder {
+  color: #94a3b8;
+}
+
+.login-button {
+  background: linear-gradient(135deg, #f97316, #ec4899);
+  color: white;
+  padding: 1rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.login-button:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.button-arrow {
+  transition: transform 0.3s ease;
+}
+
+.login-button:hover .button-arrow {
+  transform: translateX(5px);
+}
+
+@media (max-width: 640px) {
+  .login-card {
+    padding: 2rem;
+  }
+
+  .login-header h2 {
+    font-size: 1.75rem;
+  }
+
+  .form-group input {
+    padding: 0.7rem 1rem;
+  }
 }
 </style>
