@@ -11,19 +11,20 @@
       referrerpolicy="strict-origin-when-cross-origin"
       allowfullscreen
     ></iframe>
+    <!-- 리뷰 컴포넌트에 비디오 ID 전달 -->
+    <YoutubeVideoReview :videoId="store.selectVideo.id.videoId" />
   </div>
 </template>
 
 <script setup>
-import { useYoutubeStore } from '@/stores/youtube';
-import { computed } from 'vue';
-const store = useYoutubeStore();
+import { useYoutubeStore } from '@/stores/youtube'
+import { computed } from 'vue'
+const store = useYoutubeStore()
 
-const videoURL = computed(()=>{
+const videoURL = computed(() => {
   const videoSrc = store.selectVideo.id.videoId
   return `https://www.youtube.com/embed/${videoSrc}`
 })
-
 </script>
 
 <style scoped></style>

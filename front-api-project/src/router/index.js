@@ -9,13 +9,8 @@ import BoardUpdate from "@/components/board/BoardUpdate.vue";
 
 import UserLogin from "@/components/user/UserLogin.vue";
 
-import KakaoView from "@/views/KakaoView.vue";
-
-import TmdbView from "@/views/TmdbView.vue";
-import TmdbPopular from "@/components/tmdb/TmdbPopular.vue";
-import TmdbTopRated from "@/components/tmdb/TmdbTopRated.vue";
-
 import YoutubeView from "@/views/YoutubeView.vue";
+import YoutubeLikesView from "@/views/YoutubeLikesView.vue";
 import SignUpView from "@/views/SignUpView.vue";
 
 const router = createRouter({
@@ -64,31 +59,14 @@ const router = createRouter({
       component: SignUpView
     },
     {
-      path: "/kakao",
-      name: "kakao",
-      component: KakaoView,
-    },
-    {
-      path: "/tmdb",
-      name: "tmdb",
-      component: TmdbView,
-      children: [
-        {
-          path: "popular",
-          name: "tmdbPopular",
-          component: TmdbPopular,
-        },
-        {
-          path: "toprated",
-          name: "tmdbTopRated",
-          component: TmdbTopRated,
-        },
-      ],
-    },
-    {
       path: "/youtube",
       name: "youtube",
       component: YoutubeView,
+    },
+    {
+      path: "/youtubeLikes",
+      name: "youtubeLikes",
+      component: YoutubeLikesView,
     },
     // {
     //   path: "/chat",

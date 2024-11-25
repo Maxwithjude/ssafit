@@ -4,9 +4,8 @@
       <RouterLink to="/">Home</RouterLink> |
       <RouterLink :to="{ name: 'boardList' }">BoardList</RouterLink> |
       <RouterLink :to="{ name: 'boardCreate' }">BoardCreate</RouterLink> |
-      <RouterLink :to="{ name: 'kakao' }">KakaoMap</RouterLink> |
-      <RouterLink :to="{ name: 'tmdb' }">TMDB</RouterLink> |
-      <RouterLink :to="{ name: 'youtube' }">Youtube</RouterLink> |
+      <RouterLink :to="{ name: 'youtube' }">러닝영상 검색</RouterLink> |
+      <RouterLink :to="{ name: 'youtubeLikes'}">찜한 영상보기</RouterLink> |
       <div class="header-buttons">
         <button v-if="isLoggedIn" @click="logout">로그아웃</button>
         <RouterLink v-else :to="{ name: 'login' }">로그인</RouterLink>

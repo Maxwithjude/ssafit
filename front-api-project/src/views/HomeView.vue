@@ -2,8 +2,6 @@
   <div>
     <h2>HomeView</h2>
     <hr />
-    <WeatherForecast />
-    <hr />
     <ChatBot />
     <hr />
     <YoutubeVideoDetail />
@@ -93,7 +91,6 @@ import { applyReactInVue, applyPureReactInVue } from 'veaury'
 import { ref } from 'vue'
 
 import ChatReactComponent from '../react_app/Chat.jsx'
-import WeatherForecast from '@/components/weather/WeatherForecast.vue'
 import ChatBot from '@/components/chatbot/ChatBot.vue'
 import YoutubeVideoPopular from '@/components/youtube/YoutubeVideoPopular.vue'
 import YoutubeVideoDetail from '@/components/youtube/YoutubeVideoDetail.vue'

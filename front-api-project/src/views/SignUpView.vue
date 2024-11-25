@@ -47,7 +47,8 @@ export default {
       email: '',
     });
 
-    const handleSignup = async () => {
+    const handleSignup = async (e) => {
+      e.preventDefault();
       try {
         await userStore.signup(form);
       } catch (error) {
