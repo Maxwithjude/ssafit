@@ -2,7 +2,7 @@
   <nav class="nav-container" :class="{ 'nav-scrolled': isScrolled }">
     <div class="nav-content">
       <div class="nav-left">
-        <RouterLink to="/" class="logo">SSAFIT</RouterLink>
+        <RouterLink to="/" class="logo"><img src="@/assets/PaceLink.png" class="PaceLinkIcon" alt="PaceLink">PaceLink</RouterLink>
         <div class="nav-links">
           <RouterLink to="/" class="nav-link">Home</RouterLink>
           <RouterLink :to="{ name: 'boardList' }" class="nav-link">러닝크루 모집</RouterLink>
@@ -57,6 +57,11 @@
  </script>
  
  <style scoped>
+ .PaceLinkIcon {
+  height: 24px;
+  margin-right: 8px;
+  }
+
  .nav-container {
   position: fixed;
   top: 0;

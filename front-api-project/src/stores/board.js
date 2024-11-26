@@ -63,15 +63,43 @@ export const useBoardStore = defineStore('board', () => {
     })
   }
 
-  const searchBoardList = function (searchCondition) {
-    axios
-      .get(REST_API_URL, {
-        params: searchCondition,
-      })
-      .then((res) => {
-        boardList.value = res.data
-      })
+// board.js의 searchBoardList 함수 수정
+const searchBoardList = function (searchCondition) {
+  const token = sessionStorage.getItem('access-token')
+  if (!token) {
+    alert('로그인 시 이용 가능합니다.')
+    return
   }
+
+  // 검색 조건이 none이면 빈 문자열로 변경
+  const params = {
+    key: searchCondition.key === 'none' ? '' : searchCondition.key,
+    word: searchCondition.word || '',
+    orderBy: searchCondition.orderBy === 'none' ? '' : searchCondition.orderBy,
+    orderByDir: searchCondition.orderByDir || 'asc'
+  }
+
+  console.log('검색 파라미터:', params) // 디버깅용
+
+  axios
+    .get(REST_API_URL, {
+      params,
+      headers: {
+        'access-token': token,
+      }
+    })
+    .then((res) => {
+      console.log('검색 결과:', res.data) // 디버깅용
+      boardList.value = res.data
+    })
+    .catch((err) => {
+      console.error('검색 실패:', err.response?.data || err)
+      if (err.response) {
+        console.error('에러 상세:', err.response.data) // 상세 에러 메시지 확인
+      }
+      alert('검색 중 문제가 발생했습니다.')
+    })
+}
 
   return {
     boardList,

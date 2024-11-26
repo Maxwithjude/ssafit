@@ -1,3 +1,4 @@
+<!-- YoutubeView.vue -->
 <template>
   <div>
     <h2>YoutubeView</h2>
@@ -9,11 +10,6 @@
       <div class="video-detail">
         <YoutubeVideoDetail />
       </div>
-      <!-- 리뷰 컴포넌트 -->
-      <div class="video-review">
-        <YoutubeVideoReview />
-        <!-- 리스트 -->
-      </div>
     </div>
     <hr />
     <YoutubeVideoList />
@@ -24,17 +20,13 @@
 import YoutubeVideoSearch from '@/components/youtube/YoutubeVideoSearch.vue'
 import YoutubeVideoList from '@/components/youtube/YoutubeVideoList.vue'
 import YoutubeVideoDetail from '@/components/youtube/YoutubeVideoDetail.vue'
-import YoutubeVideoReview from '@/components/youtube/YoutubeVideoReview.vue'
 </script>
 
 <style scoped>
 .youtube-view {
-  display: flex;
-  gap: 20px;
-}
-
-.video-detail,
-.video-review {
-  flex: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
 }
 </style>
