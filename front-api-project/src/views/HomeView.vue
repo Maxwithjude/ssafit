@@ -10,7 +10,11 @@
         <h1>RUN TOGETHER</h1>
         <p>함께 뛰며 만드는 특별한 순간</p>
         <div class="hero-buttons">
-          <RouterLink v-if="!isLoggedIn" :to="{ name: 'Signup' }" class="primary-btn">
+          <RouterLink
+            v-if="!isLoggedIn"
+            :to="{ name: 'Signup' }"
+            class="primary-btn"
+          >
             러닝크루 시작하기
             <span class="btn-arrow">→</span>
           </RouterLink>
@@ -46,16 +50,16 @@
     <section class="crew-section">
       <h2 class="section-title">진행중인 크루</h2>
       <div class="crew-container">
-        <div 
-          v-for="crew in crews" 
-          :key="crew.id" 
+        <div
+          v-for="crew in crews"
+          :key="crew.id"
           class="crew-card"
-          :class="{ 'hovered': hoveredCrewId === crew.id }"
+          :class="{ hovered: hoveredCrewId === crew.id }"
           @mouseenter="hoveredCrewId = crew.id"
           @mouseleave="hoveredCrewId = null"
         >
           <div class="crew-image-container">
-            <img :src="crew.image" :alt="crew.title">
+            <img :src="crew.image" :alt="crew.title" />
             <div class="crew-badge">{{ crew.status }}</div>
           </div>
           <div class="crew-content">
@@ -83,7 +87,9 @@
         class="bi bi-chat-right-text-fill"
         viewBox="0 0 16 16"
       >
-        <path d="M16 2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h9.586a1 1 0 0 1 .707.293l2.853 2.853a.5.5 0 0 0 .854-.353zM3.5 3h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1 0-1m0 2.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1 0-1m0 2.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1" />
+        <path
+          d="M16 2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h9.586a1 1 0 0 1 .707.293l2.853 2.853a.5.5 0 0 0 .854-.353zM3.5 3h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1 0-1m0 2.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1 0-1m0 2.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1"
+        />
       </svg>
     </div>
 
@@ -104,19 +110,21 @@
                 fill="currentColor"
                 viewBox="0 0 16 16"
               >
-                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                <path
+                  d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
+                />
               </svg>
             </button>
           </div>
         </div>
       </div>
-      <div class="chat-body">
+      <main class="chat-body">
         <Chat
           :config="config"
           :setSbUserInfo="setSbUserInfo"
           :setUnreadMessageCount="setUnreadMessageCount"
         />
-      </div>
+      </main>
     </div>
   </div>
 </template>
@@ -145,7 +153,7 @@ const messageCountRef = ref(null)
 const stats = ref([
   { value: '2,000+', label: '활동 러너' },
   { value: '150+', label: '진행중인 크루' },
-  { value: '30+', label: '러닝 코스' }
+  { value: '30+', label: '러닝 코스' },
 ])
 
 // 크루 데이터
@@ -156,7 +164,7 @@ const crews = ref([
     schedule: '매일 오전 6시, 올림픽공원',
     members: 15,
     status: '모집중',
-    image: '/images/crew1.jpg'
+    image: '/images/crew1.jpg',
   },
   {
     id: 2,
@@ -164,7 +172,7 @@ const crews = ref([
     schedule: '주말 오전 7시, 여의도한강공원',
     members: 23,
     status: '모집중',
-    image: '/images/crew2.jpg'
+    image: '/images/crew2.jpg',
   },
   {
     id: 3,
@@ -172,8 +180,8 @@ const crews = ref([
     schedule: '평일 저녁 7시, 청계천',
     members: 18,
     status: '모집중',
-    image: '/images/crew3.jpg'
-  }
+    image: '/images/crew3.jpg',
+  },
 ])
 
 // 채팅 설정
@@ -320,8 +328,13 @@ const messageCount = computed(() => messageCountRef.value)
 }
 
 @keyframes float {
-  0%, 100% { transform: translate(0, 0); }
-  50% { transform: translate(30px, -30px); }
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(30px, -30px);
+  }
 }
 
 .stats-section {

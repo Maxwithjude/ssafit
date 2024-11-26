@@ -1,19 +1,12 @@
 <template>
-  <v-app>
+  <div>
     <TheHeaderNav />
-    <v-main>
-      <router-view />
-    </v-main>
-  </v-app>
+    <hr />
+
+    <RouterView />
+  </div>
 </template>
-
 <script>
-import TheHeaderNav from './components/common/TheHeaderNav.vue';
-
-export default {
-  name: "App",
-  components: {
-    TheHeaderNav,
-  },
-};
+import TheHeaderNav from './components/common/TheHeaderNav.vue'
 </script>
+<style></style>
