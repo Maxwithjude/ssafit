@@ -24,7 +24,6 @@
 		JOIN follow f ON v.video_id = f.video_id
 		WHERE f.user_id = #{userId};
 	</select>
-	
 	<!-- 중복된 video_id는 무시하고 삽입 -->
 	<insert id="insertVideos">
 	    INSERT IGNORE INTO video (video_id, title, channel_name, url, view_count)

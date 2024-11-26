@@ -1,6 +1,8 @@
 package com.ssafy.pjt.model.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -23,12 +25,15 @@ public class UserServiceImpl implements UserService{
 		this.fd = fd;
 	}
 
-
+	
 	@Override
-	public User checkUser(User user) {
-		return ud.checkUser(user);
+	public User checkUser(String userId, String userPassword) { // 이름 변경
+	    Map<String, String> info = new HashMap<>();
+	    info.put("userId", userId);
+	    info.put("userPassword", userPassword); // 이름 변경
+	    User tmp = ud.selectOne(info);
+	    return tmp;
 	}
-
 
 	@Override
 	public boolean signup(User user) {

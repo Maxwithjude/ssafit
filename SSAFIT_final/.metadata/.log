@@ -1,4 +1,4 @@
-!SESSION 2024-11-22 18:50:56.686 -----------------------------------------------
+!SESSION 2024-11-23 21:19:21.296 -----------------------------------------------
 eclipse.buildId=4.24.0.202407191504
 java.version=21.0.3
 java.vendor=Eclipse Adoptium
@@ -6,94 +6,34 @@ BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=ko_KR
 Framework arguments:  -product org.springframework.boot.ide.branding.sts4
 Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.springframework.boot.ide.branding.sts4
 
-!ENTRY ch.qos.logback.classic 1 0 2024-11-22 18:51:03.792
+!ENTRY ch.qos.logback.classic 1 0 2024-11-23 21:19:26.405
 !MESSAGE Activated before the state location was initialized. Retry after the state location is initialized.
 
-!ENTRY ch.qos.logback.classic 1 0 2024-11-22 18:56:05.239
-!MESSAGE Logback config file: C:\Users\akall\OneDrive\바탕 화면\ssafit\SSAFIT_final\.metadata\.plugins\org.eclipse.m2e.logback\logback.2.6.1.20240411-1122.xml
+!ENTRY ch.qos.logback.classic 1 0 2024-11-23 21:24:20.250
+!MESSAGE Logback config file: C:\Users\akall\OneDrive\바탕 화면\ssafit_backend\SSAFIT_final\.metadata\.plugins\org.eclipse.m2e.logback\logback.2.6.1.20240411-1122.xml
 
-!ENTRY org.eclipse.ui 2 0 2024-11-22 18:56:05.926
+!ENTRY org.eclipse.ui 2 0 2024-11-23 21:24:21.044
 !MESSAGE Warnings while parsing the commands from the 'org.eclipse.ui.commands' and 'org.eclipse.ui.actionDefinitions' extension points.
-!SUBENTRY 1 org.eclipse.ui 2 0 2024-11-22 18:56:05.926
+!SUBENTRY 1 org.eclipse.ui 2 0 2024-11-23 21:24:21.045
 !MESSAGE Commands should really have a category: plug-in='org.springframework.tooling.boot.ls', id='spring.initializr.addStarters', categoryId='org.eclipse.lsp4e.commandCategory'
 
-!ENTRY org.eclipse.ui 2 0 2024-11-22 18:56:06.337
+!ENTRY org.eclipse.ui 2 0 2024-11-23 21:24:21.902
 !MESSAGE Warnings while parsing the commands from the 'org.eclipse.ui.commands' and 'org.eclipse.ui.actionDefinitions' extension points.
-!SUBENTRY 1 org.eclipse.ui 2 0 2024-11-22 18:56:06.337
+!SUBENTRY 1 org.eclipse.ui 2 0 2024-11-23 21:24:21.904
 !MESSAGE Commands should really have a category: plug-in='org.springframework.tooling.boot.ls', id='spring.initializr.addStarters', categoryId='org.eclipse.lsp4e.commandCategory'
 
-!ENTRY org.eclipse.ui 2 0 2024-11-22 18:56:06.399
+!ENTRY org.eclipse.ui 2 0 2024-11-23 21:24:22.016
 !MESSAGE Warnings while parsing the images from the 'org.eclipse.ui.commandImages' extension point.
-!SUBENTRY 1 org.eclipse.ui 2 0 2024-11-22 18:56:06.399
+!SUBENTRY 1 org.eclipse.ui 2 0 2024-11-23 21:24:22.016
 !MESSAGE Cannot bind to an undefined command: plug-in='com.genuitec.eclipse.theming.ui', id='com.genuitec.myeclipse.help.darktheme.commandid'
 
-!ENTRY com.genuitec.eclipse.theming.ui 1 0 2024-11-22 18:56:07.400
+!ENTRY com.genuitec.eclipse.theming.ui 1 0 2024-11-23 21:24:23.514
 !MESSAGE A DevStyle Theme is being activated on this workspace; preparing colors and configuration
 
-!ENTRY com.genuitec.eclipse.theming.ui 1 0 2024-11-22 18:56:07.447
+!ENTRY com.genuitec.eclipse.theming.ui 1 0 2024-11-23 21:24:23.591
 !MESSAGE DevStyle has archived current color configurations to alternate preferences - will be restored when switching out of the DevStyle Theme
 
-!ENTRY org.eclipse.egit.ui 2 0 2024-11-22 18:56:15.547
-!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
-user global configuration and to define the default location to store repositories: 'C:\Users\akall'. If this is
-not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
-EGit might behave differently since they see different configuration options.
-This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
-!SESSION 2024-11-22 19:00:59.290 -----------------------------------------------
-eclipse.buildId=4.24.0.202407191504
-java.version=21.0.3
-java.vendor=Eclipse Adoptium
-BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=ko_KR
-Framework arguments:  -product org.springframework.boot.ide.branding.sts4
-Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.springframework.boot.ide.branding.sts4
-
-!ENTRY ch.qos.logback.classic 1 0 2024-11-22 19:01:04.323
-!MESSAGE Activated before the state location was initialized. Retry after the state location is initialized.
-
-!ENTRY ch.qos.logback.classic 1 0 2024-11-22 19:01:22.776
-!MESSAGE Logback config file: C:\Users\akall\OneDrive\바탕 화면\ssafit\SSAFIT_final\.metadata\.plugins\org.eclipse.m2e.logback\logback.2.6.1.20240411-1122.xml
-
-!ENTRY org.eclipse.ui 2 0 2024-11-22 19:01:23.512
-!MESSAGE Warnings while parsing the commands from the 'org.eclipse.ui.commands' and 'org.eclipse.ui.actionDefinitions' extension points.
-!SUBENTRY 1 org.eclipse.ui 2 0 2024-11-22 19:01:23.512
-!MESSAGE Commands should really have a category: plug-in='org.springframework.tooling.boot.ls', id='spring.initializr.addStarters', categoryId='org.eclipse.lsp4e.commandCategory'
-
-!ENTRY org.eclipse.ui 2 0 2024-11-22 19:01:23.949
-!MESSAGE Warnings while parsing the commands from the 'org.eclipse.ui.commands' and 'org.eclipse.ui.actionDefinitions' extension points.
-!SUBENTRY 1 org.eclipse.ui 2 0 2024-11-22 19:01:23.949
-!MESSAGE Commands should really have a category: plug-in='org.springframework.tooling.boot.ls', id='spring.initializr.addStarters', categoryId='org.eclipse.lsp4e.commandCategory'
-
-!ENTRY org.eclipse.egit.ui 2 0 2024-11-22 19:01:32.829
-!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
-user global configuration and to define the default location to store repositories: 'C:\Users\akall'. If this is
-not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
-EGit might behave differently since they see different configuration options.
-This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
-!SESSION 2024-11-22 19:05:50.185 -----------------------------------------------
-eclipse.buildId=4.24.0.202407191504
-java.version=21.0.3
-java.vendor=Eclipse Adoptium
-BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=ko_KR
-Framework arguments:  -product org.springframework.boot.ide.branding.sts4
-Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.springframework.boot.ide.branding.sts4
-
-!ENTRY ch.qos.logback.classic 1 0 2024-11-22 19:05:55.613
-!MESSAGE Activated before the state location was initialized. Retry after the state location is initialized.
-
-!ENTRY ch.qos.logback.classic 1 0 2024-11-22 19:06:08.324
-!MESSAGE Logback config file: C:\Users\akall\OneDrive\바탕 화면\ssafit\SSAFIT_final\.metadata\.plugins\org.eclipse.m2e.logback\logback.2.6.1.20240411-1122.xml
-
-!ENTRY org.eclipse.ui 2 0 2024-11-22 19:06:09.120
-!MESSAGE Warnings while parsing the commands from the 'org.eclipse.ui.commands' and 'org.eclipse.ui.actionDefinitions' extension points.
-!SUBENTRY 1 org.eclipse.ui 2 0 2024-11-22 19:06:09.120
-!MESSAGE Commands should really have a category: plug-in='org.springframework.tooling.boot.ls', id='spring.initializr.addStarters', categoryId='org.eclipse.lsp4e.commandCategory'
-
-!ENTRY org.eclipse.ui 2 0 2024-11-22 19:06:09.573
-!MESSAGE Warnings while parsing the commands from the 'org.eclipse.ui.commands' and 'org.eclipse.ui.actionDefinitions' extension points.
-!SUBENTRY 1 org.eclipse.ui 2 0 2024-11-22 19:06:09.573
-!MESSAGE Commands should really have a category: plug-in='org.springframework.tooling.boot.ls', id='spring.initializr.addStarters', categoryId='org.eclipse.lsp4e.commandCategory'
-
-!ENTRY org.eclipse.egit.ui 2 0 2024-11-22 19:06:18.516
+!ENTRY org.eclipse.egit.ui 2 0 2024-11-23 21:24:33.377
 !MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
 user global configuration and to define the default location to store repositories: 'C:\Users\akall'. If this is
 not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and

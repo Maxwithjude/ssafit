@@ -10,7 +10,7 @@ import com.ssafy.pjt.model.dto.User;
 
 public interface UserService {
 
-	User checkUser(User user);
+	public User checkUser(String userId, String userPassword);
 
 	boolean signup(User user);
 	

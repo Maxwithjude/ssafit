@@ -3,15 +3,13 @@ package com.ssafy.pjt.model.dto;
 public class User {
 
 	private String userId; // 아이디
-	private String userNickname; // 이름
-	private String userPassword; // 비밀번호
+	private String userPassword; // 이름
+	private String userName; // 비밀번호
+	private String userNickname;
 	private String userEmail;
-
 	// 기본 생성자
 	public User() {
 	}
-	
-	
 	
 	public User(String userId, String userPassword) {
 		this.userId = userId;
@@ -19,14 +17,14 @@ public class User {
 	}
 
 
-
-	public User(String userId, String userNickname, String userPassword, String userEmail) {
+	public User(String userId, String userPassword, String userName, String userNickname, String userEmail) {
+		super();
 		this.userId = userId;
-		this.userNickname = userNickname;
 		this.userPassword = userPassword;
+		this.userName = userName;
+		this.userNickname = userNickname;
 		this.userEmail = userEmail;
 	}
-
 
 	public String getUserId() {
 		return userId;
@@ -52,6 +50,14 @@ public class User {
 		this.userPassword = userPassword;
 	}
 
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
 	public String getUserEmail() {
 		return userEmail;
 	}
@@ -59,6 +65,7 @@ public class User {
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
 	}
+
 
 	
 }

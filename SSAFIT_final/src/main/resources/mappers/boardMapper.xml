@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.pjt.model.dao.BoardDao">
+	<!-- 전체 게시글 조회 및 검색기능 -->
+	<select id="search" resultType="Board" parameterType="SearchCondition">
+        SELECT * FROM boards
+        <where>
+            <if test="key != 'none' and word != null and word != ''">
+                <choose>
+                    <when test="key == 'writer'">
+                        writer LIKE CONCAT('%', #{word}, '%')
+                    </when>
+                    <when test="key == 'title'">
+                        title LIKE CONCAT('%', #{word}, '%')
+                    </when>
+                    <when test="key == 'content'">
+                        content LIKE CONCAT('%', #{word}, '%')
+                    </when>
+                </choose>
+            </if>
+        </where>
+        <if test="orderBy != 'none'">
+            <choose>
+                <when test="orderBy == 'writer'">
+                    ORDER BY writer
+                </when>
+                <when test="orderBy == 'title'">
+                    ORDER BY title
+                </when>
+                <when test="orderBy == 'view_cnt'">
+                    ORDER BY view_cnt
+                </when>
+                <otherwise>
+                    ORDER BY id
+                </otherwise>
+            </choose>
+            <choose>
+                <when test="orderByDir == 'desc'">
+                    DESC
+                </when>
+                <otherwise>
+                    ASC
+                </otherwise>
+            </choose>
+        </if>
+    </select>
+
+	<!-- 상세 게시글 조회 -->
+	<select id="selectOne" resultType="Board" parameterType="int">
+		SELECT *
+		FROM boards
+		WHERE id = #{id};
+	</select>
+
+	<!-- 게시글 등록 -->
+	<insert id="insertBoard" parameterType="Board" keyProperty="id"
+		useGeneratedKeys="true">
+		INSERT INTO boards (title, writer, content)
+		VALUES
+		(#{title}, #{writer}, #{content});
+	</insert>
+
+	<!-- 게시글 삭제 -->
+	<delete id="deleteBoard" parameterType="int">
+		DELETE FROM boards
+		WHERE
+		id = #{id};
+	</delete>
+
+	<!-- 조회수 증가 -->
+	<update id="updateViewCnt" parameterType="int">
+		UPDATE boards
+		SET
+		view_cnt = view_cnt+1
+		WHERE id = #{id};
+	</update>
+
+	<!-- 게시글 수정 -->
+	<update id="updateBoard" parameterType="Board">
+		UPDATE boards
+		SET title =
+		#{title}, content = #{content}
+		WHERE id = #{id};
+	</update>
+
+</mapper>
