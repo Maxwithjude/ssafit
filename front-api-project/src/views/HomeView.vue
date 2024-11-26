@@ -41,8 +41,22 @@
     <section class="video-section">
       <h2 class="section-title">인기 러닝 영상</h2>
       <div class="video-container">
-        <YoutubeVideoPopular />
-        <YoutubeVideoDetail />
+        <Suspense>
+          <template #default>
+            <LazyYoutubeVideoPopular />
+          </template>
+          <template #fallback>
+            <div>Loading...</div>
+          </template>
+        </Suspense>
+        <Suspense>
+          <template #default>
+            <LazyYoutubeVideoDetail />
+          </template>
+          <template #fallback>
+            <div>Loading...</div>
+          </template>
+        </Suspense>
       </div>
     </section>
 
@@ -130,13 +144,21 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, defineAsyncComponent } from 'vue'
 import { useUserStore } from '@/stores/user'
 import { applyPureReactInVue } from 'veaury'
 import ChatReactComponent from '../react_app/Chat.jsx'
-import YoutubeVideoDetail from '@/components/youtube/YoutubeVideoDetail.vue'
-import YoutubeVideoPopular from '@/components/youtube/YoutubeVideoPopular.vue'
+// import YoutubeVideoDetail from '@/components/youtube/YoutubeVideoDetail.vue'
+// import YoutubeVideoPopular from '@/components/youtube/YoutubeVideoPopular.vue'
 import TheHeaderNav from '@/components/common/TheHeaderNav.vue'
+
+const LazyYoutubeVideoDetail = defineAsyncComponent(() =>
+  import('@/components/youtube/YoutubeVideoDetail.vue')
+)
+
+const LazyYoutubeVideoPopular = defineAsyncComponent(() =>
+  import('@/components/youtube/YoutubeVideoPopular.vue')
+)
 
 const Chat = applyPureReactInVue(ChatReactComponent)
 const SENDBIRD_API_KEY = import.meta.env.VITE_SENDBIRD_API_KEY
@@ -164,7 +186,7 @@ const crews = ref([
     schedule: '매일 오전 6시, 올림픽공원',
     members: 15,
     status: '모집중',
-    image: '/images/crew1.jpg',
+    image: 'src/assets/crew1.jpg',
   },
   {
     id: 2,
@@ -172,7 +194,7 @@ const crews = ref([
     schedule: '주말 오전 7시, 여의도한강공원',
     members: 23,
     status: '모집중',
-    image: '/images/crew2.jpg',
+    image: '/src/assets/crew2.jpg',
   },
   {
     id: 3,
@@ -180,7 +202,7 @@ const crews = ref([
     schedule: '평일 저녁 7시, 청계천',
     members: 18,
     status: '모집중',
-    image: '/images/crew3.jpg',
+    image: '/src/assets/crew3.jpg',
   },
 ])
 
@@ -469,7 +491,7 @@ const messageCount = computed(() => messageCountRef.value)
 /* 채팅 아이콘 */
 .chat-icon {
   position: fixed;
-  bottom: 2rem;
+  bottom: 6rem;
   right: 2rem;
   width: 60px;
   height: 60px;
@@ -523,7 +545,7 @@ const messageCount = computed(() => messageCountRef.value)
   position: fixed;
   bottom: 2rem;
   right: 2rem;
-  width: 600px;
+  width: 1100px;
   height: 600px;
   background: white;
   border-radius: 1rem;
