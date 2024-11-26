@@ -41,8 +41,8 @@
     <section class="video-section">
       <h2 class="section-title">인기 러닝 영상</h2>
       <div class="video-container">
-        <YoutubeVideoDetail />
         <YoutubeVideoPopular />
+        <YoutubeVideoDetail />
       </div>
     </section>
 

@@ -6,7 +6,9 @@
     <RouterView />
   </div>
 </template>
-<script>
+
+<script setup>
 import TheHeaderNav from './components/common/TheHeaderNav.vue'
 </script>
+
 <style></style>
