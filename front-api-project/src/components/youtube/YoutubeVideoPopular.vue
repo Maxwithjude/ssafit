@@ -1,7 +1,7 @@
 <template>
   <div class="popular-videos">
     <div class="section-header">
-      <h2>운동 인기 동영상</h2>
+      <h2>러닝 인기 동영상</h2>
       <div class="header-line"></div>
     </div>
     
@@ -30,7 +30,7 @@ import YoutubeVideoListItem from "./YoutubeVideoListItem.vue";
 const store = useYoutubeStore();
 
 onMounted(() => {
-  store.searchPopular("운동");
+  store.searchPopular("러닝 자세");
 });
 </script>
 
@@ -54,6 +54,7 @@ onMounted(() => {
   margin-bottom: 1rem;
   display: inline-block;
   background: linear-gradient(135deg, #f97316, #ec4899);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -137,6 +138,7 @@ onMounted(() => {
 
   .section-header h2 {
     background: linear-gradient(135deg, #f97316, #ec4899);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }

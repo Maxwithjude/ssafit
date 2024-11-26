@@ -3,7 +3,27 @@
     <nav>
       <TheHeaderNav />
     </nav>
-
+    <!-- 긴급 공지 알림 -->
+    <div v-if="showNotice" class="notice-alert" :class="{ 'slide-in': showNotice }">
+      <div class="notice-content">
+        <div class="notice-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+        </div>
+        <p class="notice-text">
+          긴급공지 : 단체 러닝 크루 활동에 대한 서울 내 지자체별 제한이 생겼습니다. 크루원들은 규칙을 준수하여주세요.
+        </p>
+        <button @click="closeNotice" class="notice-close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+    </div>
     <!-- 히어로 섹션 -->
     <section class="hero-section">
       <div class="hero-content">
@@ -39,7 +59,6 @@
 
     <!-- 영상 섹션 -->
     <section class="video-section">
-      <h2 class="section-title">인기 러닝 영상</h2>
       <div class="video-container">
         <Suspense>
           <template #default>
@@ -112,24 +131,27 @@
       <div class="chat-header">
         <div class="header-content">
           <div class="header-left">
-            <span class="chat-title">SSAFIT CHAT</span>
+            <div class="logo-container">
+              <img src="/public/PaceLink.ico" alt="PaceLink logo" class="chat-logo" />
+              <span class="chat-title">PaceLink CHAT</span>
+            </div>
             <div class="message-count" v-if="messageCount > 0">
               {{ messageCount }}
             </div>
-            <button @click="closeChatWindow" class="close-button">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="currentColor"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
-                />
-              </svg>
-            </button>
           </div>
+          <button @click="closeChatWindow" class="close-button">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
+              />
+            </svg>
+          </button>
         </div>
       </div>
       <main class="chat-body">
@@ -151,6 +173,12 @@ import ChatReactComponent from '../react_app/Chat.jsx'
 // import YoutubeVideoDetail from '@/components/youtube/YoutubeVideoDetail.vue'
 // import YoutubeVideoPopular from '@/components/youtube/YoutubeVideoPopular.vue'
 import TheHeaderNav from '@/components/common/TheHeaderNav.vue'
+
+const showNotice = ref(true)
+
+const closeNotice = () => {
+  showNotice.value = false
+}
 
 const LazyYoutubeVideoDetail = defineAsyncComponent(() =>
   import('@/components/youtube/YoutubeVideoDetail.vue')
@@ -246,6 +274,136 @@ const messageCount = computed(() => messageCountRef.value)
 </script>
 
 <style scoped>
+.notice-alert {
+  position: relative; /* relative로 변경 */
+  top: 60px; /* header 높이만큼 여백 추가 */
+  background: linear-gradient(135deg, #fef2f2, #fff1f2);
+  border-left: 4px solid #ef4444;
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  animation: slideDown 0.5s ease-out;
+  z-index: 10; /* header보다 낮은 z-index 설정 */
+}
+
+.notice-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.notice-icon {
+  color: #ef4444;
+  flex-shrink: 0;
+  animation: pulse 2s infinite;
+}
+
+.notice-text {
+  color: #1e293b;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+  flex-grow: 1;
+}
+
+.notice-close {
+  background: none;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.notice-close:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: #ef4444;
+  transform: rotate(90deg);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;  /* 로고와 텍스트 사이 간격 증가 */
+}
+
+.chat-logo {
+  width: 32px;  /* 24px에서 32px로 증가 */
+  height: 32px;  /* 24px에서 32px로 증가 */
+  object-fit: contain;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  width: 100%;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* 다크모드 지원 */
+@media (prefers-color-scheme: dark) {
+  .notice-alert {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05));
+    border-left-color: #ef4444;
+  }
+
+  .notice-text {
+    color: #e5e5e5;
+  }
+
+  .notice-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .crew-section {
+    background: linear-gradient(to bottom, #1a1a1a, #111);
+  }
+
+  .section-title {
+    color: #e5e5e5;
+  }
+
+  .crew-card {
+    background: #1e1e1e;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .crew-content h3 {
+    color: #e5e5e5;
+  }
+
+  .crew-schedule,
+  .crew-members {
+    color: #a1a1aa;
+  }
+}
+
 .hero-section {
   height: 100vh;
   background: linear-gradient(135deg, #f97316, #ec4899);
@@ -255,6 +413,7 @@ const messageCount = computed(() => messageCountRef.value)
   align-items: center;
   justify-content: center;
   color: white;
+  margin-top: 60px;
 }
 
 .hero-content {
@@ -396,9 +555,29 @@ const messageCount = computed(() => messageCountRef.value)
 .section-title {
   text-align: center;
   font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 50px;
+  font-weight: 800;
+  margin-bottom: 3rem;
   color: #1e293b;
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #f97316, #ec4899);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(135deg, #f97316, #ec4899);
+  border-radius: 2px;
 }
 
 .video-container {
@@ -411,7 +590,7 @@ const messageCount = computed(() => messageCountRef.value)
 
 .crew-section {
   padding: 100px 20px;
-  background: #fff7ed;
+  background: linear-gradient(to bottom, #fff7ed, #fff);
 }
 
 .crew-container {
@@ -419,41 +598,52 @@ const messageCount = computed(() => messageCountRef.value)
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
+  gap: 2rem;
+  padding: 1rem;
 }
 
 .crew-card {
   background: white;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .crew-card:hover {
   transform: translateY(-10px);
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
+}
+
+.crew-card:hover .crew-image-container img {
+  transform: scale(1.1);
 }
 
 .crew-image-container {
   position: relative;
   height: 200px;
+  overflow: hidden;
 }
 
 .crew-image-container img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.5s ease;
 }
 
 .crew-badge {
   position: absolute;
   top: 1rem;
   right: 1rem;
-  background: #f97316;
+  background: linear-gradient(135deg, #f97316, #ec4899);
   color: white;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.2rem;
   border-radius: 9999px;
   font-size: 0.875rem;
+  font-weight: 600;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .crew-content {
@@ -463,13 +653,34 @@ const messageCount = computed(() => messageCountRef.value)
 .crew-content h3 {
   font-size: 1.25rem;
   font-weight: 700;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  color: #1e293b;
 }
 
-.crew-schedule,
-.crew-members {
+.crew-schedule {
   color: #64748b;
   margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.crew-schedule::before {
+  content: '🕒';
+}
+
+.crew-members {
+  color: #64748b;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.crew-members::before {
+  content: '👥';
 }
 
 .join-button {
@@ -481,11 +692,24 @@ const messageCount = computed(() => messageCountRef.value)
   border-radius: 10px;
   font-weight: 600;
   cursor: pointer;
-  transition: opacity 0.3s ease;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 .join-button:hover {
   opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.arrow-icon {
+  transition: transform 0.3s ease;
+}
+
+.join-button:hover .arrow-icon {
+  transform: translateX(5px);
 }
 
 /* 채팅 아이콘 */
@@ -560,6 +784,7 @@ const messageCount = computed(() => messageCountRef.value)
   background: linear-gradient(135deg, #f97316, #ec4899);
   padding: 1rem;
   color: white;
+  padding: 1rem 1.25rem;
 }
 
 .header {
@@ -571,11 +796,12 @@ const messageCount = computed(() => messageCountRef.value)
 .header-left {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 .chat-title {
   font-weight: 600;
+  color: white;
   font-size: 1.1rem;
 }
 
@@ -586,6 +812,7 @@ const messageCount = computed(() => messageCountRef.value)
   border-radius: 1rem;
   font-size: 0.875rem;
   font-weight: 600;
+  margin-left: auto;
 }
 
 .close-button {
@@ -598,7 +825,6 @@ const messageCount = computed(() => messageCountRef.value)
   align-items: center;
   justify-content: center;
   transition: opacity 0.3s ease;
-  margin-left: auto;
 }
 
 .close-button:hover {
@@ -627,7 +853,7 @@ const messageCount = computed(() => messageCountRef.value)
 }
 
 /* 반응형 */
-@media (max-width: 768px) {
+@media (max-width: 640px) {
   .hero-content h1 {
     font-size: 4rem;
   }
@@ -658,6 +884,15 @@ const messageCount = computed(() => messageCountRef.value)
     height: 100%;
     margin: 0;
     border-radius: 0;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .crew-card {
+    max-width: 400px;
+    margin: 0 auto;
   }
 }
 

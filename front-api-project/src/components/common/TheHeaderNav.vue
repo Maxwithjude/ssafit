@@ -6,8 +6,8 @@
         <div class="nav-links">
           <RouterLink to="/" class="nav-link">Home</RouterLink>
           <RouterLink :to="{ name: 'boardList' }" class="nav-link">러닝크루 모집</RouterLink>
-          <RouterLink :to="{ name: 'youtube' }" class="nav-link">러닝인기영상</RouterLink>
-          <RouterLink :to="{ name: 'youtubeLikes' }" class="nav-link">찜한영상</RouterLink>
+          <RouterLink :to="{ name: 'youtube' }" class="nav-link">러닝 인기 영상</RouterLink>
+          <RouterLink :to="{ name: 'youtubeLikes' }" class="nav-link">찜한 영상</RouterLink>
         </div>
       </div>
       <div class="header-buttons">
