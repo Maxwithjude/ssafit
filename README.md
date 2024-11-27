@@ -5,7 +5,7 @@
 
 
 ![image](landingpage.png)
-
+![image](chat.png)
  
 ## 2. 작업 순서
 ### 2-1 WBS 
