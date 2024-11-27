@@ -2,7 +2,9 @@
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg)](https://classroom.github.com/online_ide?assignment_repo_id=14182909&assignment_repo_type=AssignmentRepo)
 # 운동 영상 및 리뷰 사이트 SSAFIT
 ## 1.프로젝트 소개
-![image](https://github.com/kookmin-sw/capstone-2024-35/assets/162407707/6b453b05-ba72-4bd6-8e4c-f8955ecee624)
+
+
+![image](landingpage.png)
 
  
 ## 2. 작업 순서
